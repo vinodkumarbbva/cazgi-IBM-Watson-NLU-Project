@@ -25,7 +25,7 @@ class App extends React.Component {
   renderOutput = (input_mode)=>{
     let rows = 1
     let mode = "url"
-    //If the input mode is text make it 4 lines
+    //If the input mode is text make it 4 lines update 
     if(input_mode === "text"){
       mode = "text"
       rows = 4
