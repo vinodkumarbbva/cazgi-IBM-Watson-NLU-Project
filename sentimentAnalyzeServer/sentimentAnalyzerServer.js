@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('./express');
 const app = new express();
 
 /*This tells the server to use the client 
@@ -77,3 +77,4 @@ let server = app.listen(8080, () => {
     console.log('Listening', server.address().port)
 })
 
+module.exports = sentimentAnalyzerServer
