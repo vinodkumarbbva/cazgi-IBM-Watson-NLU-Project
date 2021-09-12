@@ -49,13 +49,21 @@ class App extends React.Component {
         let output = data.label;
         let color = "white"
         switch(output) {
-          case "positive": color = "black";break;
+          case "positive": color = "GREEN";break;
           case "negative": color = "black";break;
-          default: color = "black";
+          default: color = "GRAY";
         }
-        output = <div style={{color:color,fontSize:20}}>{output}</div>
+        output = <div style={{color:color,fontSize:20}}>{output}</div>;
         this.setState({sentimentOutput:output});
-      })});
+      }).catch((error) => {
+
+            if(this.state.mode=='text') {
+                this.setState({sentimentOutput: 'Provide more text to determine the language'});
+            }else{
+                this.setState({sentimentOutput: 'Provide Valid URL'});
+            }
+        })
+    });
   }
 
   sendForEmotionAnalysis = () => {
@@ -66,9 +74,23 @@ class App extends React.Component {
     url = url+"/" + mode + "/emotion?"+ mode + "="+document.getElementById("textinput").value;
 
     fetch(url).then((response)=>{
+
+        console.log("this is response "+ response);
       response.json().then((data)=>{
-      this.setState({sentimentOutput:<EmotionTable emotions={data}/>});
-  })})  ;
+
+      this.setState({sentimentOutput:<EmotionTable emotions={data} />});
+            }).catch((error) => {
+
+         if(this.state.mode=='text') {
+             this.setState({sentimentOutput: 'Provide more text to determine the language'});
+         }else{
+             this.setState({sentimentOutput: 'Provide Valid URL'});
+         }
+      });
+
+
+
+    });
   }
   
 
@@ -83,6 +105,7 @@ class App extends React.Component {
         <button className="btn-primary" onClick={this.sendForSentimentAnalysis}>Analyze Sentiment</button>
         <button className="btn-primary" onClick={this.sendForEmotionAnalysis}>Analyze Emotion</button>
         <br/>
+       <br/>
             {this.state.sentimentOutput}
       </div>
     );
