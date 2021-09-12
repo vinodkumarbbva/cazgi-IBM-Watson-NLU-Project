@@ -4,15 +4,17 @@
   "description": "",
   "main": "sentimentAnalyzerServer.js",
   "scripts": {
-    "start": "node sentimentAnalyzerServer.js",
+    "start": "nodemon sentimentAnalyzerServer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "force": "^0.0.3",
+    "ibm-watson": "^6.1.2",
     "npm": "^7.23.0"
   },
   "devDependencies": {
