@@ -1,6 +1,7 @@
 import './bootstrap.min.css';
 import './App.css';
 import EmotionTable from './EmotionTable.js';
+import SentimentTable from './SentimentTable.js';
 import React from 'react';
 
 class App extends React.Component {
@@ -47,14 +48,15 @@ class App extends React.Component {
         response.json().then((data)=>{
         this.setState({sentimentOutput:data.label});
         let output = data.label;
+        let score = data.score;
         let color = "white"
         switch(output) {
           case "positive": color = "GREEN";break;
-          case "negative": color = "black";break;
+          case "negative": color = "RED";break;
           default: color = "GRAY";
         }
-        output = <div style={{color:color,fontSize:20}}>{output}</div>;
-        this.setState({sentimentOutput:output});
+
+        this.setState({sentimentOutput:<SentimentTable color={color} label={output} score={score}/>});
       }).catch((error) => {
 
             if(this.state.mode=='text') {
